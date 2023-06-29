@@ -11,7 +11,7 @@ function LandingPage() {
             <div class="card-body">
             <img src="/images/adminlogo.jpg" class="card-img-top" alt="Wild Landscape" style={{height: '270px'}}/>
 
-              <h5 class="card-title">Librarian Access Space</h5>
+              <h5 class="card-title">Admi Access Space</h5>
               <p class="card-text">
                 With supporting text below as a natural lead-in to additional
                 content.
@@ -33,7 +33,7 @@ function LandingPage() {
                 content.
               </p>
               <a href="/userLogin" class="btn btn-primary">
-                Click Me!
+              Click Me!
               </a>
             </div>
           </div>
