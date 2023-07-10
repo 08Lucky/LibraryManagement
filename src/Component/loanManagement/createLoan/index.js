@@ -7,7 +7,6 @@ function CreateLoan() {
   const navigate = useNavigate();
 
   const [bookId, setBookId] = useState("");
-  const [userId, setUserId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const { token } = useContext(TokenContext);
@@ -20,7 +19,7 @@ function CreateLoan() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookId, userId }),
+        body: JSON.stringify({ bookId}),
       });
 
       if (response.ok) {
@@ -60,19 +59,6 @@ function CreateLoan() {
                   <p class="text-white-50 mb-4">
                     Please Note that the Loan will only be created if the user has borrowed the specific book.
                   </p>
-
-                  <div class="form-outline form-white mb-4">
-                    <input
-                      type="int"
-                      id="typeEmailX"
-                      value={userId}
-                      onChange={(e) => setUserId(e.target.value)}
-                      class="form-control form-control-lg"
-                    />
-                    <label class="form-label" for="typeEmailX">
-                      UserId
-                    </label>
-                  </div>
 
                   <div class="form-outline form-white mb-4">
                     <input

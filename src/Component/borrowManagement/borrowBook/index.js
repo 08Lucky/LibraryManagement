@@ -8,21 +8,20 @@ function BorrowBook() {
   const { token } = useContext(TokenContext);
   console.log(token);
   
-  const [userId, setUserId] = useState("");
   const [bookId, setBookId] = useState("");
 
   const [errorMessage, setErrorMessage] = useState("");
 
   async function Borrow() {
 
-    if (!bookId || !userId ) {
+    if (!bookId ) {
       setErrorMessage("Book ID is required");
       return;
     }
 
   
     try {
-      let response = await fetch(`http://localhost:8089/borrowings/borrow?privateKey=${token}&userId=${userId}&bookId=${bookId}`, {
+      let response = await fetch(`http://localhost:8089/borrowings/borrow?privateKey=${token}&bookId=${bookId}`, {
         method: "POST",
       });
 
@@ -56,22 +55,8 @@ function BorrowBook() {
                 <div class="mb-md-3 mt-md-3 pb-3">
                   <h2 class="fw-bold mb-3 text-uppercase">Borrow Book</h2>
                   <p class="text-white-50 mb-4">
-                    Enter your privateKey and the BookId and the UserId to successfully borrow the desired book
+                    Enter the BookId to successfully borrow the desired book
                   </p>
-
-                  <div class="form-outline form-white mb-4">
-                    <input
-                      type="int"
-                      id="typeEmailX"
-                      name="userId"
-                      class="form-control form-control-lg"
-                      value={userId}
-                      onChange={(e) => setUserId(e.target.value)} 
-                    />
-                    <label class="form-label" for="typeEmailX">
-                      UserId
-                    </label>
-                  </div>
 
                   <div class="form-outline form-white mb-4">
                     <input
