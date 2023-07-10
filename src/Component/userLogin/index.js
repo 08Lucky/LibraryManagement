@@ -1,29 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { TokenContext } from "../TokenContext";
 
 import Header from "../header/index";
 
 function UserLogin() {
-  const [userId, setUserId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
+  const { setToken } = useContext(TokenContext);
+
   async function login() {
-    console.warn(userId, password);
-    let item = { userId, password };
+    console.warn(email, password);
+    let item = { email, password };
+
     try {
       let response = await fetch("http://localhost:8089/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
+          "Accept": "text/plain",
         },
-        body: JSON.stringify(item),
+        body: JSON.stringify(item)
       });
+
 
       if (response.ok) {
         let result = await response.text();
+        console.log(result);
+        setToken(result);
         localStorage.setItem("user-info", JSON.stringify(result));
         navigate("/userLogin/userDashboard");
       } else {
@@ -55,14 +62,14 @@ function UserLogin() {
 
                     <div class="form-outline form-white mb-4">
                       <input
-                        type="int"
+                        type="email"
                         id="typeEmailX"
-                        value={userId}
-                        onChange={(e) => setUserId(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         class="form-control form-control-lg"
                       />
                       <label class="form-label" for="typeEmailX">
-                        UserId
+                        Email
                       </label>
                     </div>
 

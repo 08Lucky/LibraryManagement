@@ -21,30 +21,33 @@ const userSidebar = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="columns">Add Book</CDBSidebarMenuItem>
+            <NavLink exact to="/userLogin/userDashboard/updateUser" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="columns">Update User</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/tables" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Update Book</CDBSidebarMenuItem>
+            <NavLink exact to="/userLogin/userDashboard/deleteUser" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="columns">Delete User</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/tables" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Delete Book</CDBSidebarMenuItem>
+            <NavLink exact to="/userLogin/userDashboard/searchBook" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="columns">Search Book</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/profile" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Create Loan</CDBSidebarMenuItem>
+            <NavLink exact to="/userLogin/userDashboard/borrowBook" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="table">Borrow Book</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/profile" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Track Due-Date</CDBSidebarMenuItem>
+            <NavLink exact to="/userLogin/userDashboard/returnBook" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="table">Return Book</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/analytics" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">Send Remainder</CDBSidebarMenuItem>
+            <NavLink exact to="/userLogin/userDashboard/reserveBook" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="table">Reserve Book</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/analytics" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">Report</CDBSidebarMenuItem>
+            <NavLink exact to="/userLogin/userDashboard/cancelReservation" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="table">Cancel Reservation</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/userLogin/userDashboard/createLoan" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="table">Create Loan</CDBSidebarMenuItem>
             </NavLink>
 
-            <NavLink exact to="/hero404" target="_blank" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="exclamation-circle">404 page</CDBSidebarMenuItem>
+            <NavLink exact to="/userLogin/userDashboard/userLogout" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="exclamation-circle">Logout</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>

@@ -1,7 +1,8 @@
-import React, {  useState } from "react";
+import React, {  useState, useContext  } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Header from '../header/index';
+import { TokenContext } from "../TokenContext";
 
 function LibrarianLogin() {
   const [username, setUsername] = useState("");
@@ -9,6 +10,7 @@ function LibrarianLogin() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
+  const { setToken } = useContext(TokenContext);
 
   async function login() {
     console.warn(username, password);
@@ -25,6 +27,8 @@ function LibrarianLogin() {
   
       if (response.ok) {
         let result = await response.text();
+        console.log(result);
+        setToken(result);
         localStorage.setItem("user-info", JSON.stringify(result));
         navigate("/adminLogin/adminDashboard");
       } else {
@@ -94,7 +98,7 @@ function LibrarianLogin() {
           </div>
         </div>
       </div>
-    </section>
+      </section>
     </div>
   );
 }

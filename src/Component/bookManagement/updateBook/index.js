@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../../header/index";
+import { TokenContext } from "../../TokenContext";
 
 function UpdateBook() {
   const navigate = useNavigate();
@@ -9,45 +11,69 @@ function UpdateBook() {
     title: "",
     author: "",
     subject: "",
-    ISBN: "",
+    isbn: "",
     publisher: "",
     publicationDate: "",
-    availableQuantities: "",
+    availableQuantity: "",
+    image: null,
   });
 
+  const { token } = useContext(TokenContext);
+
   const handleChange = (e) => {
-    setBookData({
-      ...bookData,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === "image") {
+      setBookData({
+        ...bookData,
+        image: e.target.files[0], // Assign the selected file to the image property
+      });
+    } else {
+      setBookData({
+        ...bookData,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
-  const handleAdd = (e) => {
-    e.preventDefault();
+  const handleAdd = async (e) => {
+    const bookFormData = new FormData();
+    bookFormData.append("title", bookData.title);
+    bookFormData.append("author", bookData.author);
+    bookFormData.append("subject", bookData.subject);
+    bookFormData.append("isbn", bookData.isbn);
+    bookFormData.append("publisher", bookData.publisher);
+    bookFormData.append("publicationDate", bookData.publicationDate);
+    bookFormData.append("availableQuantity", bookData.availableQuantity);
 
-    fetch("http://localhost:8089/books/update", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bookData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          alert("Book added successfully");
-          navigate("/adminLogin/adminDashboard");
-        } else {
-          alert("Error adding book");
+    const formData = new FormData();
+    formData.append("book", JSON.stringify(Object.fromEntries(bookFormData)));
+
+    formData.append("imageFile", bookData.image);
+
+    try {
+      const response = await fetch(
+        `http://localhost:8089/books/update?privateKey=${token}`,
+        {
+          method: "PUT",
+          body: formData,
         }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("Error adding book");
-      });
+      );
+
+      if (response.status === 200) {
+        alert("Book updated successfully");
+        navigate("/adminLogin/adminDashboard");
+      } else {
+        alert("Error while Updating book");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error while Updating book");
+    }
   };
 
   return (
-    <section class="vh-100 gradient-custom">
+    <div>
+      <Header/>
+      <section class="vh-100 gradient-custom">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -59,7 +85,7 @@ function UpdateBook() {
                 <div class="mb-md-8 mt-md-3 pb-4">
                   <h2 class="fw-bold mb-2 text-uppercase">UPDATE</h2>
                   <p class="text-white-50 mb-5">
-                    Please enter the book details to be updates!
+                    Please enter the book details to be updated!
                   </p>
 
                   <div class="form-outline form-white mb-4">
@@ -124,11 +150,11 @@ function UpdateBook() {
 
                   <div class="form-outline form-white mb-4">
                     <input
-                      type="long int"
+                      type="text"
                       id="typeEmailX"
-                      name="ISBN"
+                      name="isbn"
                       class="form-control form-control-lg"
-                      value={bookData.ISBN}
+                      value={bookData.isbn}
                         onChange={handleChange}
                        
                     />
@@ -171,9 +197,9 @@ function UpdateBook() {
                     <input
                       type="int"
                       id="typeEmailX"
-                      name="availableQuantities"
+                      name="availableQuantity"
                       class="form-control form-control-lg"
-                      value={bookData.availableQuantities}
+                      value={bookData.availableQuantity}
                         onChange={handleChange}
                    
                     />
@@ -182,13 +208,26 @@ function UpdateBook() {
                     </label>
                   </div>
 
-                  <button
-                    class="btn btn-outline-light btn-lg px-5"
-                    type="submit"
-                    onClick={handleAdd}
-                  >
-                    Add
-                  </button>
+                  <div class="form-outline form-white mb-4">
+                      <input
+                        type="file"
+                        id="typeEmailX"
+                        name="image"
+                        class="form-control form-control-lg"
+                        onChange={handleChange}
+                      />
+                      <label class="form-label" for="typeEmailX">
+                        Book Cover Image{" "}
+                      </label>
+                    </div>
+
+                    <button
+                      class="btn btn-outline-light btn-lg px-5"
+                      type="submit"
+                      onClick={handleAdd}
+                    >
+                      Update
+                    </button>
                 </div>
               </div>
             </div>
@@ -196,6 +235,7 @@ function UpdateBook() {
         </div>
       </div>
     </section>
+    </div>
   );
 }
 

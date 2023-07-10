@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate  } from "react-router-dom";
+import Header from "../../header/index";
+import { TokenContext } from "../../TokenContext";
 
 function DeleteAccount() {
   const navigate  = useNavigate();
+  const { token } = useContext(TokenContext);
 
   const [userId, setUserId] = useState("");
 
   const handleDelete = () => {
-    fetch(`http://localhost:8089/users/${userId}`, {
+    fetch(`http://localhost:8089/users/${userId}?privateKey=${token}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.ok) {
           // User account successfully deleted
           alert("User account deleted successfully!");
-          navigate("/adminLogin/adminDashboard");
+          navigate("/userLogin/userDashboard");
         } else {
           // Handle errors or invalid input
           alert("Failed to delete user account. Please try again.");
@@ -27,7 +30,9 @@ function DeleteAccount() {
   };
 
   return (
-    <section class="vh-100 gradient-custom">
+    <div>
+      <Header/>
+      <section class="vh-100 gradient-custom">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-70">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -70,6 +75,7 @@ function DeleteAccount() {
         </div>
       </div>
     </section>
+    </div>
   );
 }
 

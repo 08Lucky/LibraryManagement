@@ -1,43 +1,42 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../header/index";
 import { TokenContext } from "../../TokenContext";
 
-function CancelReservation() {
+function DeleteLoan() {
 
   const navigate = useNavigate();
   const { token } = useContext(TokenContext);
-  console.log(token);
 
-  const [reservationId, setReservationId] = useState("");
+  const [loanId, setLoanId] = useState("");
 
   const [errorMessage, setErrorMessage] = useState("");
 
   async function Cancel() {
 
-    if (!reservationId ) {
-      setErrorMessage("ReservationId ID is required");
+    if (!loanId ) {
+      setErrorMessage("Loan ID is required");
       return;
     }
 
   
     try {
-      let response = await fetch(`http://localhost:8089/reservations/${reservationId}?privateKey=${token}`, {
+      let response = await fetch(`http://localhost:8089/loan-management/${loanId}?privateKey=${token}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
         const result = await response.text();
         console.log(result);
-        alert("Reservation Canceled successfully");
-        navigate("/userLogin/userDashboard");
+        alert("Loan Canceled successfully");
+        navigate("/adminLogin/adminDashboard");
       } else if (response.status === 401) {
         setErrorMessage("Unauthorized access");
       } else {
-        setErrorMessage("Could cancel the reservation");
+        setErrorMessage("Could not cancel the loan");
       }
     } catch (error) {
-      setErrorMessage("An error occurred while cancelling the book");
+      setErrorMessage("An error occurred while cancelling the loan");
     }
   }
 
@@ -54,9 +53,9 @@ function CancelReservation() {
             >
               <div class="card-body p-4 text-center">
                 <div class="mb-md-3 mt-md-3 pb-3">
-                  <h2 class="fw-bold mb-3 text-uppercase">Cancel Reservation</h2>
+                  <h2 class="fw-bold mb-3 text-uppercase">Cancel Loan</h2>
                   <p class="text-white-50 mb-4">
-                    Enter the ReservationId of the Reservation for a specific book
+                    Enter the LoanId to cancel the loan
                   </p>
 
                   <div class="form-outline form-white mb-4">
@@ -64,11 +63,11 @@ function CancelReservation() {
                       type="int"
                       id="typeEmailX"
                       class="form-control form-control-lg"
-                      value={reservationId}
-                      onChange={(e) => setReservationId(e.target.value)}
+                      value={loanId}
+                      onChange={(e) => setLoanId(e.target.value)}
                     />
                     <label class="form-label" for="typeEmailX">
-                      ReservationId
+                      LoanId
                     </label>
                   </div>
 
@@ -94,4 +93,4 @@ function CancelReservation() {
   )
 }
 
-export default CancelReservation;
+export default DeleteLoan

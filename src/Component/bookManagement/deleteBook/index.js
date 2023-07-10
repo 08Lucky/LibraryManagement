@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../../header/index";
+import { TokenContext } from "../../TokenContext";
 
 function DeleteBook() {
   const navigate = useNavigate();
@@ -7,18 +9,21 @@ function DeleteBook() {
   const [bookId, setBookId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const { token } = useContext(TokenContext);
+
   const handleDelete = () => {
     if (!bookId) {
       setErrorMessage("Book ID is required");
       return;
     }
 
-    fetch(`http://localhost:8089/books/${bookId}`, {
+    fetch(`http://localhost:8089/books/${bookId}?privateKey=${token}`,
+    {
       method: "DELETE",
     })
       .then((response) => {
         if (response.ok) {
-          navigate("/adminDashboard");
+          navigate("/adminLogin/adminDashboard");
         } else {
           setErrorMessage("Failed to Delete book");
         }
@@ -29,7 +34,9 @@ function DeleteBook() {
       });
   };
   return (
-    <section class="vh-100 gradient-custom">
+    <div>
+      <Header/>
+      <section class="vh-100 gradient-custom">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-70">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -75,6 +82,7 @@ function DeleteBook() {
         </div>
       </div>
     </section>
+    </div>
   );
 }
 

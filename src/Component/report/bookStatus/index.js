@@ -3,33 +3,36 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../header/index";
 import { TokenContext } from "../../TokenContext";
 
-function TrackDueDate() {
+function UserActivity() {
   const { token } = useContext(TokenContext);
 
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
-  async function track() {
-
+  async function Status() {
+  
     try {
-      let response = await fetch(`http://localhost:8089/loan-management/track-due-dates?privateKey=${token}`, {
-        method: "POST",
+      let response = await fetch(`http://localhost:8089/reports/book-status?privateKey=${token}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
+
       if (response.ok) {
-        const result = await response.text();
-        console.log(result);
-        alert("Due Date tracked successfully");
-        navigate("/adminLogin/adminDashboard");
+        const userReport = await response.json();
+        console.log(userReport);
+        navigate("/adminLogin/adminDashboard/bookStatusResult", { state: { userReport } });
       } else if (response.status === 401) {
-        setErrorMessage("Unauthorized access");
+        console.log("Unauthorized access");
       } else {
-        setErrorMessage("Could not track the due date");
+        setErrorMessage("Failed to Generate the Report");
       }
     } catch (error) {
-      setErrorMessage("An error occurred while tracking the due date");
+      setErrorMessage("An error occurred while sending Remainder");
     }
-  };
+  }
 
   return (
     <div>
@@ -44,21 +47,21 @@ function TrackDueDate() {
             >
               <div class="card-body p-4 text-center">
                 <div class="mb-md-3 mt-md-3 pb-3">
-                  <h2 class="fw-bold mb-3 text-uppercase">Track Due-Date & Issue Fines</h2>
+                  <h2 class="fw-bold mb-3 text-uppercase">Book Status</h2>
                   <p class="text-white-50 mb-4">
-                    Click on the submit button below to track the due dates and the fine collected by the users. 
+                    Get the report based on Book Status
                   </p>
 
                   <button
                     class="btn btn-outline-light btn-lg px-5"
                     type="submit"
-                    onClick={track}
+                    onClick={Status}
                   >
-                    Send
+                    Submit
                   </button>
                   {errorMessage && (
-                    <p className="text-danger mt-3">{errorMessage}</p>
-                  )}
+                      <p className="text-danger mt-3">{errorMessage}</p>
+                    )}
                 </div>
 
               </div>
@@ -66,9 +69,9 @@ function TrackDueDate() {
           </div>
         </div>
       </div>
-    </section>
+      </section>
     </div>
   )
 }
 
-export default TrackDueDate;
+export default UserActivity

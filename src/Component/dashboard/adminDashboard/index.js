@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../header/index";
 import Sidebar from "../sidebar/index";
-import Card from "../Card/index";
+import Card from "../Card/AllBooks";
 import Carousel from "../Carousel/index";
 
 function AdminDashboard() {
@@ -12,7 +12,6 @@ function AdminDashboard() {
         <Sidebar />
         <div>
           <Carousel/>
-          <Card />
           <Card />
         </div>
       </div>

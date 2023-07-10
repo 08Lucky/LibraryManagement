@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../../header/index";
+import { TokenContext } from "../../TokenContext";
 
 function UpdateDetails() {
   const navigate = useNavigate();
@@ -9,21 +11,23 @@ function UpdateDetails() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [accountStatus, setAccountStatus] = useState("");
+  const [userStatus, setUserStatus] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  const { token } = useContext(TokenContext);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
 
     // Perform validation
-    if (!firstName || !lastName || !email || !password || !accountStatus) {
+    if (!firstName || !lastName || !email || !password || !userStatus) {
       alert("Please fill in all the fields.");
       return;
     }
 
     // Perform registration API call
     try {
-      const response = await fetch("http://localhost:8089/users/update", {
+      const response = await fetch(`http://localhost:8089/users/update?privateKey=${token}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -34,13 +38,13 @@ function UpdateDetails() {
           lastName,
           email,
           password,
-          accountStatus,
+          userStatus,
         }),
       });
 
       if (response.ok) {
         alert("User details updated successfully"); // Registration successful, redirect to userLogin page
-        navigate("/adminLogin/adminDashboard");
+        navigate("/userLogin/userDashboard");
       } else {
         // Handle registration error
         const errorData = await response.json();
@@ -53,7 +57,9 @@ function UpdateDetails() {
   };
 
   return (
-    <section class="vh-100 gradient-custom">
+    <div>
+      <Header/>
+      <section class="vh-100 gradient-custom">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -138,8 +144,8 @@ function UpdateDetails() {
                       type="text"
                       id="typePasswordX"
                       class="form-control form-control-lg"
-                      value={accountStatus}
-                      onChange={(e) => setAccountStatus(e.target.value)}
+                      value={userStatus}
+                      onChange={(e) => setUserStatus(e.target.value)}
                     />
                     <label class="form-label" for="typePasswordX">
                       Account Status
@@ -151,7 +157,7 @@ function UpdateDetails() {
                     type="submit"
                     onClick={handleUpdate}
                   >
-                    Register
+                    Update
                   </button>
                 </div>
               </div>
@@ -160,6 +166,7 @@ function UpdateDetails() {
         </div>
       </div>
     </section>
+    </div>
   );
 }
 

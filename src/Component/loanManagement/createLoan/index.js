@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../../header/index";
+import { TokenContext } from "../../TokenContext";
 
 function CreateLoan() {
   const navigate = useNavigate();
@@ -8,9 +10,12 @@ function CreateLoan() {
   const [userId, setUserId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const { token } = useContext(TokenContext);
+  console.log(token);
+
   const handleCreateLoan = async () => {
     try {
-      const response = await fetch("http://localhost:8089/loan-management/create", {
+      const response = await fetch(`http://localhost:8089/loan-management/create?privateKey=${token}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -19,11 +24,14 @@ function CreateLoan() {
       });
 
       if (response.ok) {
-        // Loan created successfully
-        navigate("/adminLogin/adminDashboard");
+        const result = await response.text();
+        console.log(result);
+        alert("Loan created successfully");
+        navigate("/userLogin/userDashboard/");
+      } else if (response.status === 401) {
+        setErrorMessage("Unauthorized access");
       } else {
-        const errorData = await response.json();
-        setErrorMessage(errorData.message);
+        setErrorMessage("The user has not borrowed this book.");
       }
     } catch (error) {
       console.error("Error creating loan:", error);
@@ -32,7 +40,9 @@ function CreateLoan() {
   };
 
   return (
-    <section class="vh-100 gradient-custom">
+    <div>
+      <Header/>
+      <section class="vh-100 gradient-custom">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-70">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -48,8 +58,7 @@ function CreateLoan() {
                     loan.
                   </p>
                   <p class="text-white-50 mb-4">
-                    Please Note that the Loan will only be created if there is
-                    the user has borrowed the specific book.
+                    Please Note that the Loan will only be created if the user has borrowed the specific book.
                   </p>
 
                   <div class="form-outline form-white mb-4">
@@ -95,6 +104,7 @@ function CreateLoan() {
         </div>
       </div>
     </section>
+    </div>
   );
 }
 

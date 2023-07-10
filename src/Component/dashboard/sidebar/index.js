@@ -21,12 +21,6 @@ const Sidebar = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-          <NavLink exact to="/adminLogin/adminDashboard/updateUser" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="columns">Update User</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/adminLogin/adminDashboard/deleteUser" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="columns">Delete User</CDBSidebarMenuItem>
-            </NavLink>
             <NavLink exact to="/adminLogin/adminDashboard/addBook" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="columns">Add Book</CDBSidebarMenuItem>
             </NavLink>
@@ -36,8 +30,8 @@ const Sidebar = () => {
             <NavLink exact to="/adminLogin/adminDashboard/deleteBook" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="table">Delete Book</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/adminLogin/adminDashboard/createLoan" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Create Loan</CDBSidebarMenuItem>
+            <NavLink exact to="/adminLogin/adminDashboard/deleteLoan" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="user">Delete Loan</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/adminLogin/adminDashboard/trackDueDate" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="user">Track Due-Date</CDBSidebarMenuItem>
@@ -45,12 +39,18 @@ const Sidebar = () => {
             <NavLink exact to="/adminLogin/adminDashboard/sendRemainder" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="chart-line">Send Remainder</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/analytics" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">Report</CDBSidebarMenuItem>
+            <NavLink exact to="/adminLogin/adminDashboard/userActivity" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="chart-line">User Activity Report</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/adminLogin/adminDashboard/bookStatus" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="chart-line">Book Status Report</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/adminLogin/adminDashboard/finesCollected" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="chart-line">Fines Collected Report</CDBSidebarMenuItem>
             </NavLink>
 
-            <NavLink exact to="/hero404" target="_blank" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="exclamation-circle">404 page</CDBSidebarMenuItem>
+            <NavLink exact to="/adminLogin/adminDashboard/logout" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="exclamation-circle">Logout</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>

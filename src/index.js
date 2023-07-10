@@ -4,10 +4,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { TokenProvider } from "../src/Component/TokenContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App/>
+    <TokenProvider>
+    <App />
+  </TokenProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

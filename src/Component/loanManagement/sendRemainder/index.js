@@ -1,8 +1,39 @@
-import React from 'react'
+import React, { useState, useContext} from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "../../header/index";
+import { TokenContext } from "../../TokenContext";
 
-function sendRemainder() {
+function SendRemainder() {
+
+  const { token } = useContext(TokenContext);
+
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const sendRemainder = () => {
+
+    fetch(`http://localhost:8089/loan-management/send-reminders?privateKey=${token}`,
+    {
+      method: "POST",
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Remainder sent successfully");
+          navigate("/adminLogin/adminDashboard");
+        } else {
+          setErrorMessage("Failed to Send Remainder");
+        }
+      })
+      .catch((error) => {
+        // Error occurred while making the API request
+        setErrorMessage("An error occurred while sending Remainder");
+      });
+  };
+
   return (
-    <section class="vh-100 gradient-custom">
+    <div>
+      <Header/>
+      <section class="vh-100 gradient-custom">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-70">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -23,9 +54,13 @@ function sendRemainder() {
                   <button
                     class="btn btn-outline-light btn-lg px-5"
                     type="submit"
+                    onClick={sendRemainder}
                   >
                     Send
                   </button>
+                  {errorMessage && (
+                      <p className="text-danger mt-3">{errorMessage}</p>
+                    )}
                 </div>
 
               </div>
@@ -33,8 +68,9 @@ function sendRemainder() {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+    </div>
   )
 }
 
-export default sendRemainder
+export default SendRemainder;

@@ -34,7 +34,7 @@ function Carousel() {
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(15).webp"
+              src="/images/library.png"
               class="d-block w-100"
               alt="Sunset Over the City"
             />
