@@ -6,7 +6,6 @@ import { TokenContext } from "../../TokenContext";
 function UpdateDetails() {
   const navigate = useNavigate();
 
-  const [userId, setUserId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,7 +32,6 @@ function UpdateDetails() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId,
           firstName,
           lastName,
           email,
@@ -73,19 +71,6 @@ function UpdateDetails() {
                   <p class="text-white-50 mb-5">
                     Please enter your details for updating!
                   </p>
-
-                  <div class="form-outline form-white mb-4">
-                    <input
-                      type="Long"
-                      id="typeEmailX"
-                      class="form-control form-control-lg"
-                      value={userId}
-                      onChange={(e) => setUserId(e.target.value)}
-                    />
-                    <label class="form-label" for="typeEmailX">
-                      UserId{" "}
-                    </label>
-                  </div>
 
                   <div class="form-outline form-white mb-4">
                     <input

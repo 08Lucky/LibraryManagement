@@ -53,7 +53,7 @@ function CreateLoan() {
                 <div class="mb-md-3 mt-md-3 pb-3">
                   <h2 class="fw-bold mb-3 text-uppercase">Create Loan</h2>
                   <p class="text-white-50 mb-4">
-                    Enter the BookId and the UserId to successfully create a
+                    Enter the BookId to successfully create a
                     loan.
                   </p>
                   <p class="text-white-50 mb-4">

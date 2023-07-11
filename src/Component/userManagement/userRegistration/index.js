@@ -8,13 +8,13 @@ function UserRegistration() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [accountStatus, setAccountStatus] = useState("");
+  const [userStatus, setUserStatus] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     // Perform validation
-    if (!firstName || !lastName || !email || !password || !accountStatus) {
+    if (!firstName || !lastName || !email || !password || !userStatus) {
       alert("Please fill in all the fields.");
       return;
     }
@@ -31,7 +31,7 @@ function UserRegistration() {
           lastName,
           email,
           password,
-          accountStatus,
+          userStatus,
         }),
       });
 
@@ -122,8 +122,8 @@ function UserRegistration() {
                       type="text"
                       id="typePasswordX"
                       class="form-control form-control-lg"
-                      value={accountStatus}
-                        onChange={(e) => setAccountStatus(e.target.value)}
+                      value={userStatus}
+                        onChange={(e) => setUserStatus(e.target.value)}
                     />
                     <label class="form-label" for="typePasswordX">
                     Account Status

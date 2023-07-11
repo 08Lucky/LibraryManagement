@@ -30,6 +30,9 @@ const Sidebar = () => {
             <NavLink exact to="/adminLogin/adminDashboard/deleteBook" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="table">Delete Book</CDBSidebarMenuItem>
             </NavLink>
+            <NavLink exact to="/adminLogin/adminDashboard/allUsers" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="user">Users List</CDBSidebarMenuItem>
+            </NavLink>
             <NavLink exact to="/adminLogin/adminDashboard/deleteLoan" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="user">Delete Loan</CDBSidebarMenuItem>
             </NavLink>

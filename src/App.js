@@ -18,6 +18,7 @@ import UserLogout from "./Component/userLogout";
 import AddBook from "./Component/bookManagement/addBook";
 import UpdateBook from "./Component/bookManagement/updateBook";
 import DeleteBook from "./Component/bookManagement/deleteBook";
+import AllUsers from "./Component/userManagement/allUsers";
 import CreateLoan from "./Component/loanManagement/createLoan";
 import DeleteLoan from "./Component/loanManagement/deleteLoan";
 import SendRemainder from "./Component/loanManagement/sendRemainder";
@@ -50,6 +51,8 @@ function App() {
           <Route path="/adminLogin/adminDashboard/addBook" element={<AddBook />} />
           <Route path="/adminLogin/adminDashboard/updateBook" element={<UpdateBook />} />
           <Route path="/adminLogin/adminDashboard/deleteBook" element={<DeleteBook />} />
+          <Route path="/adminLogin/adminDashboard/allUsers" element={<AllUsers />} />
+
           <Route path="/adminLogin/adminDashboard/createLoan" element={<CreateLoan />} />
           <Route path="/adminLogin/adminDashboard/deleteLoan" element={<DeleteLoan />} />
 

@@ -7,17 +7,15 @@ function DeleteAccount() {
   const navigate  = useNavigate();
   const { token } = useContext(TokenContext);
 
-  const [userId, setUserId] = useState("");
-
   const handleDelete = () => {
-    fetch(`http://localhost:8089/users/${userId}?privateKey=${token}`, {
+    fetch(`http://localhost:8089/users?privateKey=${token}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.ok) {
           // User account successfully deleted
           alert("User account deleted successfully!");
-          navigate("/userLogin/userDashboard");
+          navigate("/");
         } else {
           // Handle errors or invalid input
           alert("Failed to delete user account. Please try again.");
@@ -44,22 +42,11 @@ function DeleteAccount() {
                 <div class="mb-md-3 mt-md-3 pb-3">
                   <h2 class="fw-bold mb-3 text-uppercase">Delete</h2>
                   <p class="text-white-50 mb-4">
-                    Enter the UserId of the account that you wish to delete
+                    Are You sure that you want to delete your user Account?
                   </p>
-
-                  <div class="form-outline form-white mb-4">
-                    <input
-                      type="int"
-                      id="typeEmailX"
-                      class="form-control form-control-lg"
-                      value={userId}
-                      onChange={(e) => setUserId(e.target.value)}
-                    />
-                    <label class="form-label" for="typeEmailX">
-                      UserId
-                    </label>
-                  </div>
-
+                  <p class="text-white-50 mb-4">
+                    You won't be able to recover it once deleted press delete if you want to confirm
+                  </p>
                   <button
                     class="btn btn-outline-light btn-lg px-5"
                     type="submit"
